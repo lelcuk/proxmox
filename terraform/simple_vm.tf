@@ -42,4 +42,9 @@ resource "proxmox_vm_qemu" "flatcar-vm" {
         type = "socket"
     }
 
+    #    ipconfig0 = "ip=10.10.20.15/24,gw=10.10.10.1"
+    #    sshkeys = <<EOF
+    #    ${var.vm_ssh_key}
+    #    EOF
+
 }

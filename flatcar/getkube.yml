@@ -41,9 +41,11 @@ storage:
           apiVersion: kubeadm.k8s.io/v1beta3
           kind: ClusterConfiguration
           controlPlaneEndpoint: 10.10.10.1:6443
+          networking:
+            podSubnet: "10.46.0.0/16"
           controllerManager:
             extraArgs:
-              flex-volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"          
+              flex-volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 systemd:
   units:
     - name: kubelet.service
@@ -66,10 +68,7 @@ systemd:
         [Service]
         Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin"
         ExecStartPre=/opt/bin/kubeadm config images pull
-        ExecStartPre=/opt/bin/kubeadm init --config /etc/kubeadm.yml
-        ExecStartPre=/usr/bin/mkdir /home/core/.kube
-        ExecStartPre=/usr/bin/cp /etc/kubernetes/admin.conf /home/core/.kube/config
-        ExecStart=/usr/bin/chown -R core:core /home/core/.kube
+        ExecStart=/usr/bin/touch /home/core/kubeadm-done
 
         [Install]
-        WantedBy=multi-user.target        
+        WantedBy=multi-user.target
