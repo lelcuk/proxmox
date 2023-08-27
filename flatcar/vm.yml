@@ -1,0 +1,10 @@
+variant: flatcar
+version: 1.0.0
+ignition:
+  config:
+    merge:
+      - local: getkube.yml
+        compression: null
+      - local: network.yml
+
+
