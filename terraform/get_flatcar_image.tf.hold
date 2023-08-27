@@ -11,11 +11,11 @@ resource "null_resource" "flatcar_image" {
   #}
 
   provisioner "local-exec" {
-    command = "curl -o image.img.bz2 https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2; bzips -d flatcar_production_qemu_image.img.bz2"
+    command = "curl -o flatcar_production_qemu_image.img.bz2 https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_qemu_image.img.bz2; bzip2 -d flatcar_production_qemu_image.img.bz2"
   }
 
   provisioner "local-exec" {
     when    = destroy
-    command = "rm image.img"
+    command = "rm flatcar_production_qemu_image.img"
   }
 }
